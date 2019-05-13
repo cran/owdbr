@@ -33,12 +33,10 @@ a tibble with the requested data, if there are more than one IBGECODE, returns a
 }
 \description{
 PETI (Child Slave Labour Erradication Program) is a brazilian social welfare program that provides financial support for poor families. Its objective is to protect these families children from any type of work before the age of 16 years old, with that, the Federal Government expect them to keep going to school.
-This function collects municipal level data from the program, some data like the number of citizens in a municipality wich are enrolled in the program, and the total amound of money invested by the program in that city.
+This function collects municipal level data from the program, some data like the number of citizens in a municipality which are enrolled in the program, and the total amount of money invested by the program in that city.
 }
 \examples{
-getpeti_mun('3304557', AAAA='2015', MM='05', PAGE=1)
-
-
+getpeti_mun("3304557", AAAA = "2015", MM = "05", PAGE = 1)
 }
 \author{
 Joao Pedro Oliveira dos Santos, International Relations Institute, Pontifical Catholic University of Rio de Janeiro

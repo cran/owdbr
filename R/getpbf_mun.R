@@ -1,40 +1,39 @@
 #' Collects municipal level data from the program BOLSA FAMILIA database.
 #'
-#'The program BOLSA FAMILIA is a brazilian social welfare program that provides financial aid for poor families.
-#'This function collects municipal level data from the program, some data like the number of citizens in a municipality wich are enrolled in the program, and the total amound of money invested by the program in that city.
+#' The program BOLSA FAMILIA is a brazilian social welfare program that provides financial aid for poor families.
+#' This function collects municipal level data from the program, some data like the number of citizens in a municipality which are enrolled in the program, and the total amount of money invested by the program in that city.
 #'
-#'@param IBGECODE IBGE unique identifier of the municipality which you want the data. The list of municipalities and its codes might be requested with the function owdbr::munlist()
-#'@param AAAA Year of the data (AAAA format)
-#'@param MM Month of the data (MM format)
-#'@param PAGE Request's page. In normal situations: page=1.
+#' @param IBGECODE IBGE unique identifier of the municipality which you want the data. The list of municipalities and its codes might be requested with the function owdbr::munlist()
+#' @param AAAA Year of the data (AAAA format)
+#' @param MM Month of the data (MM format)
+#' @param PAGE Request's page. In normal situations: page=1.
 #'
-#'@return a tibble with the requested data, if there are more than one IBGECODE, returns all of them in the same tibble.
-#'\describe{
-#'   \item{table.dataReferencia}{Reference date}
-#'   \item{table.valor}{Amount of money invested in the municipality.}
-#'   \item{table.quantidadeBeneficiados}{Number of citizens wich are enrolled in the program in that moment}
-#'   \item{table.municipio.codigoIBGE}{IBGE code of the municipality.}
-#'   \item{table.municipio.nomeIBGE}{Name of the municipality.}
-#'   \item{table.municipio.pais}{Country of the municipality.}
-#'   \item{table.municipio.uf.sigla}{Abbreviation of name of the state in which the municipality is.}
-#'   \item{table.municipio.uf.nome}{Full name of the state in wich the municipality is.}
-#'   \item{table.tipo.id}{Type}
-#'   \item{table.tipo.descricao}{Abbreviation of the program's name.}
-#'   \item{table.tipo.descricaoDetalhada}{Full name of the program.}
+#' @return a tibble with the requested data, if there are more than one IBGECODE, returns all of them in the same tibble.
+#' \describe{
+#'   \item{dataReferencia}{Reference date}
+#'   \item{valor}{Amount of money invested in the municipality.}
+#'   \item{quantidadeBeneficiados}{Number of citizens wich are enrolled in the program in that moment}
+#'   \item{municipio.codigoIBGE}{IBGE code of the municipality.}
+#'   \item{municipio.nomeIBGE}{Name of the municipality.}
+#'   \item{municipio.pais}{Country of the municipality.}
+#'   \item{municipio.uf.sigla}{Abbreviation of name of the state in which the municipality is.}
+#'   \item{municipio.uf.nome}{Full name of the state in wich the municipality is.}
+#'   \item{tipo.id}{Type}
+#'   \item{tipo.descricao}{Abbreviation of the program's name.}
+#'   \item{tipo.descricaoDetalhada}{Full name of the program.}
 #'   }
-#'@examples getpbf_mun('3304557', AAAA='2015', MM='05', PAGE=1)
+#' @examples
+#' getpbf_mun("3304557", AAAA = "2015", MM = "05", PAGE = 1)
+#' @author Joao Pedro Oliveira dos Santos, International Relations Institute, Pontifical Catholic University of Rio de Janeiro
 #'
-#'@author Joao Pedro Oliveira dos Santos, International Relations Institute, Pontifical Catholic University of Rio de Janeiro
-#'
-#'@export
+#' @export
 getpbf_mun <- function(IBGECODE, AAAA, MM, PAGE) {
-
   if (AAAA < 2003) {
     stop("Invalid Input: Program Bolsa Familia was created in 2003, so AAAA cannot be < 2003")
   }
 
-  if(AAAA < 2012) {
-    stop('The requested time period data might not be availible!')
+  if (AAAA < 2012) {
+    stop("The requested time period data might not be availible!")
   }
 
   if (MM > 12) {
@@ -49,7 +48,8 @@ getpbf_mun <- function(IBGECODE, AAAA, MM, PAGE) {
   table <- c()
 
   for (i in IBGECODE) {
-    request <- httr::GET(url = path,
+    request <- httr::GET(
+      url = path,
       query = list(
         mesAno = AAAAMM,
         codigoIbge = i,
@@ -57,8 +57,8 @@ getpbf_mun <- function(IBGECODE, AAAA, MM, PAGE) {
       )
     )
 
-    if(request$status_code != 200){
-      stop(warning('Request Failed: Status Code '), request$status_code)
+    if (request$status_code != 200) {
+      stop(warning("Request Failed: Status Code "), request$status_code)
     }
 
     resp <- httr::content(request, as = "text", encoding = "UTF-8")
@@ -70,5 +70,3 @@ getpbf_mun <- function(IBGECODE, AAAA, MM, PAGE) {
 
   return(table)
 }
-
-
