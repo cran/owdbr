@@ -13,8 +13,10 @@
 #' }
 #'
 #' @examples
+#' \dontrun{
 #' uflist(reg = NA) # show all states of the country.
 #' uflist(region = "Sul") # only exhibit States in the 'Sul' region of the country.
+#' }
 #' @author Joao Pedro Oliveira dos Santos, International Relations Institute, Pontifical Catholic University of Rio de Janeiro
 #'
 #' @export

@@ -20,7 +20,9 @@
 #'   }
 #'
 #' @examples
+#' \dontrun{
 #' munlist(11)
+#' }
 #' @import tibble
 #'
 #' @author Joao Pedro Oliveira dos Santos, International Relations Institute, Pontifical Catholic University of Rio de Janeiro

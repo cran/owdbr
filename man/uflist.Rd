@@ -22,8 +22,10 @@ a tibble with 3 columns.
 Returns a tibble which contains the IBGE identification code of each one of all 23 UFs (Units of the Federation) in Brazil.
 }
 \examples{
+\dontrun{
 uflist(reg = NA) # show all states of the country.
 uflist(region = "Sul") # only exhibit States in the 'Sul' region of the country.
+}
 }
 \references{
 Source: \href{https://cidades.ibge.gov.br}{IBGE (Brazilian Institute of Geography and Statistics)}
